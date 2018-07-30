@@ -1,24 +1,26 @@
-<form [formGroup]="employerForm" class="elem-box__form">
+<form [formGroup]="employerForm" (submit)="onRegisterEmployer()" class="elem-box__form">
 
     <mat-form-field appearance="outline">
       <mat-label>Full Name</mat-label>
       <input formControlName="name" matInput>
     </mat-form-field>
-
+    
     <mat-form-field appearance="outline">
       <mat-label>Username</mat-label>
       <input formControlName="username" matInput>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input formControlName="email" type="email" matInput>
-    </mat-form-field>
+    <div formGroupName="emailGroup">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" type="email" matInput>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Confirm Email</mat-label>
-      <input formControlName="confirmEmail" type="email" matInput>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm Email</mat-label>
+        <input formControlName="confirmEmail" type="email" matInput>
+      </mat-form-field>
+    </div>
 
     <mat-form-field appearance="outline">
       <mat-label>Company Name</mat-label>
@@ -30,13 +32,13 @@
       <input  formControlName="companySize" type="number" matInput>
     </mat-form-field>
 
-    <mat-form-field>
+    <!-- <mat-form-field>
       <mat-select  formControlName="serviceCategory" placeholder="Select service category">
         <mat-option>
           Option 1
         </mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
@@ -50,6 +52,6 @@
 
     <div class="elem-box__buttons">
       <button class="elem-box__button" mat-raised-button>Cancel</button>
-      <button [disabled]="!employerForm.valid" class="elem-box__button" mat-raised-button color="primary">Register</button>
+      <button class="elem-box__button" mat-raised-button color="primary">Register</button>
     </div>
   </form>
