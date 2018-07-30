@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import './styles/variables';
+@import './styles/global';
+@import './styles/typography';
+
+@import './styles/mixins';
+
+// Components 
+@import './styles/components/box';
+@import './styles/components/spinner';
+
+// Layouts
+@import './styles/layouts/navigation/header';
+@import './styles/layouts/navigation/sidebar';
+@import './styles/layouts/navigation/navigation_toggle';
+@import './styles/layouts/main';
+
+body {
+    height: 3000px;
+}

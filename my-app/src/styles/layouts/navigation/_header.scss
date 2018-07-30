@@ -1,0 +1,90 @@
+.header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: auto;
+    width: 100%;
+    background: $color-white;
+    box-shadow: $shadow-grey-small;
+    overflow: hidden;
+    z-index: 100;
+
+    &__right-navbar {
+        float: right;
+    }
+
+    &__list-item {
+        list-style: none;
+        display: inline-block;
+        padding: 1.1rem;
+        cursor: pointer;
+        transition: all 300ms ease-in-out;
+
+        &:hover {
+            background: $color-grey-light;
+        }
+
+        &:hover .header__list-link {
+            color: $color-primary-light;
+        }
+
+        &.active {
+          background-color: $color-grey-light;
+        }
+
+        &.active .header__list-link {
+          color: $color-primary-light;
+        }
+
+    }
+
+    &__list-link {
+        text-decoration: none;
+        color: $color-grey-dark;
+        font-size: .8rem;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    &__left-search-container {
+        position: absolute;
+        left: 0;
+        height: 100%;
+        width: 40%;
+    }
+
+    &__search-input {
+        border: none;
+        padding: 8px 8px;
+        width: 20%;
+        height: 57px;
+        transition: all 200ms ease-in-out;
+        &:focus,
+        &:active {
+            font-size: 1.2rem;
+            padding-left: 15px;
+            width: 100%;
+            outline: none;
+            background: $color-grey-light;
+        }
+
+        &:focus ~ .header__search-btn {
+            margin-left: -50px;
+            font-size: 1.2rem;
+        }
+    }
+
+    &__search-btn {
+        border: none;
+        padding: 8px;
+        background: transparent;
+        cursor: pointer;
+        margin-left: -25px;
+
+        &:focus,
+        &:active {
+            outline: 0;
+            background: transparent;
+        }
+    }
+}

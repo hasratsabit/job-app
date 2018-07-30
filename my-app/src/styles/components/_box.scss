@@ -1,0 +1,64 @@
+
+.elem-box {
+    width: 100%;
+    border-radius: 3px;
+    background: $color-white;
+    margin: 0 auto;
+    box-shadow: $shadow-grey-small;
+
+    &--full {
+      @include respond(tab-land) {
+        width: 90%;
+      }
+    }
+
+    &--medium {
+      @include respond(tab-land) {
+        width: 50%;
+      }
+    }
+
+    &__header {
+        position: relative;
+        height: 45px;
+        border-radius: 3px 3px 0 0;
+        background: $color-primary-light;
+    }
+
+    &__header-title {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: .9rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: white;
+    }
+
+    &__header-close {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      color: $color-white;
+    }
+
+    &__body {
+      width: 100%;
+      padding: 20px 40px;
+      @include clearfix;
+    }
+
+    &__form {
+      margin-top: 10px;
+    }
+
+    &__buttons {
+      float: right;
+    }
+
+    &__button {
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+}

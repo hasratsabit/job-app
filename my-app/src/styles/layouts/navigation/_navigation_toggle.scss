@@ -1,0 +1,29 @@
+// Sidebar animation
+.navigation {
+
+    .sidebar,
+    .header {
+        transition: all 200ms ease-in;
+    }
+
+    .slideOut {
+        transition: all 200ms ease-in;
+        width: 4%;
+
+        .sidebar__list-link {
+            display: none;
+        }
+    }
+
+    .header-expanded {
+        width: 96%;
+        transition: all 200ms ease-in;
+
+    }
+}
+
+// When the sidebar is toggled, this class applies to expand the main.
+.main-expanded {
+    width: 96% !important;
+    transition: all 200ms ease-in;
+}
