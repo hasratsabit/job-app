@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, FormControlName } from '@angular/forms';
-import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef, Input } from '@angular/core';
 
 import { Observable, Subscription, fromEvent, merge, of } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -31,16 +31,15 @@ function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
 
 export class EmployerRegisterComponent implements OnInit, AfterViewInit {
 
-  public employerForm: FormGroup;
   public displayMessages: { [key: string ]: string } = {};
   private validationMessages: { [key: string]: { [key: string]: string } } = validationMessages;
   private genericValidation: GenericValidation;
 
+  @Input('employerForm') employerForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
 
   ) {
-    this.createEmployerRegisteration();
 
 
     this.genericValidation = new GenericValidation(this.validationMessages);
@@ -48,29 +47,7 @@ export class EmployerRegisterComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(FormControlName, {read: ElementRef}) formInputElements: ElementRef[];
 
-  createEmployerRegisteration() {
-    this.employerForm = this.formBuilder.group({
-      name: ['', Validators.compose([
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(30)
-      ])],
-      username: ['', Validators.compose([
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(30)
-      ])],
-      companyName: ['', Validators.required],
-      companySize: ['', Validators.required],
-      // serviceCategory: ['', Validators.required],
-      emailGroup: this.formBuilder.group({
-        email: ['', Validators.required],
-        confirmEmail: ['', Validators.required],
-      }, {validator: emailMatcher}),
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-    });
-  }
+ 
 
   onRegisterEmployer() {
     const employer: EmployerModel = {
