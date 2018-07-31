@@ -6,7 +6,7 @@ import { debounceTime } from 'rxjs/operators';
 
 import { EmployerModel } from '../../../shared/models/employer.model';
 import { GenericValidation } from '../../../shared/validations/generic-validation';
-import { validationMessages } from '../../data/validation.data';
+import { userValidationData } from '../../../shared/data/user-validation.data';
 
 function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const emailControl = c.get('email');
@@ -32,36 +32,64 @@ function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
 export class EmployerRegisterComponent implements OnInit, AfterViewInit {
 
   public displayMessages: { [key: string ]: string } = {};
-  private validationMessages: { [key: string]: { [key: string]: string } } = validationMessages;
+  private userValidationData: { [key: string]: { [key: string]: string } } = userValidationData;
   private genericValidation: GenericValidation;
 
-  @Input('employerForm') employerForm: FormGroup;
+  public employerForm: FormGroup;
+
   constructor(
     private formBuilder: FormBuilder,
 
   ) {
 
-
-    this.genericValidation = new GenericValidation(this.validationMessages);
+    this.createRegistrationForm();
+    this.genericValidation = new GenericValidation(this.userValidationData);
    }
 
   @ViewChildren(FormControlName, {read: ElementRef}) formInputElements: ElementRef[];
 
- 
+  createRegistrationForm() {
+    this.employerForm = this.formBuilder.group({
+      name: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(30),
+        Validators.pattern(/^[a-zA-Z ]{2,30}$/)
+      ])],
+      username: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(30),
+        Validators.pattern(/^[a-zA-Z-0-9]{5,30}$/)
+      ])],
+      companyName: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30),
+        Validators.pattern(/^[a-zA-Z ]{2,30}$/)
+      ])],
+      companySize: ['', Validators.required],
+      // serviceCategory: ['', Validators.required],
+      emailGroup: this.formBuilder.group({
+        email: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30),
+          Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{3,30}$/)
+        ])],
+        confirmEmail: ['', Validators.required],
+      }),
+      password: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(30)
+      ])],
+      confirmPassword: ['', Validators.required],
+    });
+  }
 
   onRegisterEmployer() {
-    const employer: EmployerModel = {
-      name: this.employerForm.get('name').value,
-      username: this.employerForm.get('username').value,
-      companyName: this.employerForm.get('companyName').value,
-      companySize: this.employerForm.get('companySize').value,
-      // serviceCategory: this.employerForm.get('serviceCategory').value,
-      email: this.employerForm.get('email').value,
-      confirmEmail: this.employerForm.get('confirmEmail').value,
-      password: this.employerForm.get('password').value,
-      confirmPassword: this.employerForm.get('confirmPassword').value,
-    };
-
+    const employer: EmployerModel = this.employerForm.value;
     console.log(employer);
   }
 
@@ -73,7 +101,7 @@ export class EmployerRegisterComponent implements OnInit, AfterViewInit {
       .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
 
     merge(this.employerForm.valueChanges, ...controlBlur).pipe(
-      debounceTime(800)
+      debounceTime(500)
     ).subscribe(value => {
       this.displayMessages = this.genericValidation.processMessages(this.employerForm);
     })
