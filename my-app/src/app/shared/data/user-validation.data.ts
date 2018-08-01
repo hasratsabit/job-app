@@ -24,7 +24,7 @@ export const userValidationData = {
       required: 'The email field is required.',
       minlength: 'Email must be at least 3 characters.',
       maxlength: 'Email cannot exceed 30 characters.',
-      pattern: 'Please provide a valid email address.'
+      pattern: 'Please provide a valid email address.',
     },
     confirmEmail: {
       required: 'Please confirm your email.'

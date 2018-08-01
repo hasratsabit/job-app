@@ -1,4 +1,4 @@
-export interface EmployerModel {
+export interface Employer {
     name: string;
     username: string;
     companyName: string;

@@ -1,4 +1,4 @@
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,6 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { EmployerRegisterComponent } from './register/employer-register/employer-register.component';
 import { JobSeekerRegisterComponent } from './register/job-seeker-register/job-seeker-register.component';
+import { RegisterService } from './services/register.service';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { JobSeekerRegisterComponent } from './register/job-seeker-register/job-s
   ],
   exports: [
     HeaderComponent
-  ]
+  ],
+  providers: [RegisterService]
 })
 export class CoreModule { }

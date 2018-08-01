@@ -17,5 +17,9 @@
     "url": "https://github.com/hasratsabit/job-app/issues"
   },
   "homepage": "https://github.com/hasratsabit/job-app#readme",
-  "dependencies": {}
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.6"
+  }
 }

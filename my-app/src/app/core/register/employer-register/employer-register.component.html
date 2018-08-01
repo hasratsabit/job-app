@@ -22,7 +22,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Confirm Email</mat-label>
         <input formControlName="confirmEmail" type="email" matInput>
-        <mat-error>{{displayMessages.confirmEmail}}</mat-error>
+        <mat-error>{{displayMessages.errors}}</mat-error>
       </mat-form-field>
     </div>
 
@@ -55,11 +55,11 @@
     <mat-form-field appearance="outline">
       <mat-label>Confirm Password</mat-label>
       <input  formControlName="confirmPassword" type="password" matInput>
-      <mat-error>{{displayMessages.confirmPassword}}</mat-error>
+      <mat-error>{{displayMessages.confirm}}</mat-error>
     </mat-form-field>
 
     <div class="elem-box__buttons">
       <button class="elem-box__button" mat-raised-button>Cancel</button>
-      <button type="submit" class="elem-box__button" mat-raised-button color="primary">Register</button>
+      <button [disabled]="!employerForm.valid" type="submit" class="elem-box__button" mat-raised-button color="primary">Register</button>
     </div>
   </form>

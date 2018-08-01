@@ -4,9 +4,11 @@ import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef, Input } fro
 import { Observable, Subscription, fromEvent, merge, of } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
-import { EmployerModel } from '../../../shared/models/employer.model';
+import { Employer } from '../../../shared/models/employer.model';
 import { GenericValidation } from '../../../shared/validations/generic-validation';
 import { userValidationData } from '../../../shared/data/user-validation.data';
+import { ValueMatcherValidation } from '../../../shared/validations/value-match-validation';
+import { RegisterService } from '../../services/register.service';
 
 function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const emailControl = c.get('email');
@@ -18,6 +20,20 @@ function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
     return null;
   }
   return {'match': true };
+}
+
+function valueMatcher(baseValue: string, confirmValue: string): ValidatorFn {
+  return function(c: AbstractControl): { [key: string]: boolean } | null {
+    const baseValControl = c.get('email');
+    const confirmValControl = c.get('confirmEmail');
+    if (baseValControl.pristine || confirmValControl.pristine) {
+      return null;
+    }
+    if (baseValControl.value === confirmValControl.value) {
+      return null;
+    }
+    return {'match': true };
+  };
 }
 
 
@@ -39,16 +55,17 @@ export class EmployerRegisterComponent implements OnInit, AfterViewInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private registerService: RegisterService
 
   ) {
 
-    this.createRegistrationForm();
+    this.createEmployerForm();
     this.genericValidation = new GenericValidation(this.userValidationData);
    }
 
   @ViewChildren(FormControlName, {read: ElementRef}) formInputElements: ElementRef[];
 
-  createRegistrationForm() {
+  createEmployerForm() {
     this.employerForm = this.formBuilder.group({
       name: ['', Validators.compose([
         Validators.required,
@@ -78,7 +95,7 @@ export class EmployerRegisterComponent implements OnInit, AfterViewInit {
           Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{3,30}$/)
         ])],
         confirmEmail: ['', Validators.required],
-      }),
+      }, {validator: ValueMatcherValidation.matchValue('email', 'confirmEmail')}),
       password: ['', Validators.compose([
         Validators.required,
         Validators.minLength(8),
@@ -89,8 +106,10 @@ export class EmployerRegisterComponent implements OnInit, AfterViewInit {
   }
 
   onRegisterEmployer() {
-    const employer: EmployerModel = this.employerForm.value;
-    console.log(employer);
+    const employer: Employer = this.employerForm.value;
+    this.registerService.registerEmployer(employer).subscribe(res => {
+      console.log(res);
+    })
   }
 
   ngOnInit() {
