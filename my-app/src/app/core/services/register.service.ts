@@ -10,13 +10,13 @@ import { catchError } from 'rxjs/operators';
 })
 export class RegisterService {
 
-  public url: string;
+  public url: string = 'http://localhost:3000';
   constructor(
     private errorService: ErrorService,
     private http: HttpClient
   ) { }
 
   registerEmployer(employer: Employer): Observable<Employer> {
-    return this.http.post<Employer>(this.url, employer);
+    return this.http.post<Employer>(`${this.url}/employer`, employer);
   }
 }
