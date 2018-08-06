@@ -39,10 +39,17 @@ export class LoginComponent implements OnInit {
     this.authService.userSignedIn(res.userData);
     this.loginForm.disable();
     this.processing = true;
-    console.log(res.message);
-    setTimeout(() => {
-      this.router.navigate(['/home']);
-    }, 2000);
+    
+    if(res.userData.userCategory === 'employer') {
+      setTimeout(() => {
+        this.router.navigate(['/employer']);
+      }, 2000);
+    }else {
+      setTimeout(() => {
+        this.router.navigate(['/jobseeker']);
+      }, 2000);
+    }
+
   }
 
   ngOnInit() {

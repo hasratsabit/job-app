@@ -7,20 +7,11 @@ import { AngularMaterialModul } from './material.module';
 import { ErrorService } from './services/error.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
-import { JwtModule } from '@auth0/angular-jwt';
-
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AngularMaterialModul,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => {
-          return localStorage.getItem('token');
-        }
-      }
-    })
+    AngularMaterialModul
   ],
   declarations: [],
   exports: [

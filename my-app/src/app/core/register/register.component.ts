@@ -53,6 +53,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   private genericValidation: GenericValidation;
   public processing: boolean = false;
   public registerForm: FormGroup;
+  // public userCategories: string[] = ['jobseeker', 'employer', 'admin'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,6 +82,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         Validators.maxLength(30),
         Validators.pattern(/^[a-zA-Z-0-9]{5,30}$/)
       ])],
+      userCategory: ['', Validators.required],
       emailGroup: this.formBuilder.group({
         email: ['', Validators.compose([
           Validators.required,

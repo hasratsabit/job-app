@@ -34,6 +34,14 @@
               <mat-error>{{displayMessages.errors}}</mat-error>
             </mat-form-field>
           </div>
+
+          <mat-form-field>
+            <mat-select formControlName="userCategory" placeholder="Select Category">
+              <mat-option value="jobseeker">Job Seeker</mat-option>
+              <mat-option value="employer">Employer</mat-option>
+            </mat-select>
+            <mat-error>{{displayMessages.userCategory}}</mat-error>
+          </mat-form-field>
       
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
@@ -51,6 +59,6 @@
             <button class="elem-box__button" mat-raised-button>Cancel</button>
             <button [disabled]="!registerForm.valid || processing" type="submit" class="elem-box__button" mat-raised-button color="primary">Register</button>
           </div>
-        </form>        
+      </form>        
     </div>
   </div>

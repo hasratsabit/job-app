@@ -13,6 +13,7 @@ const UserSchema = new Schema({
   username: { type: String, required: true, unique: true, minlength: 5, maxlength: 30 },
   email: { type: String, required: true, unique: true, minlength: 3, maxlength: 30 },
   password: { type: String, required: true },
+  userCategory: { type: String, required: true },
   tokens: [{
     access: {
       type: String,

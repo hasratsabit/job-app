@@ -3,10 +3,12 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlaygroundComponent } from './playground/playground.component';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,13 @@ import { PlaygroundComponent } from './playground/playground.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        }
+      }
+    }),
     SharedModule,
     CoreModule,
   ],

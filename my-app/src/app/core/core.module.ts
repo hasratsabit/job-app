@@ -8,6 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterService } from './services/register.service';
 import { LoginComponent } from './login/login.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { LoginComponent } from './login/login.component';
     RegisterComponent, 
     HeaderComponent, 
     HomeComponent, 
-    LoginComponent
+    LoginComponent, PageNotFoundComponent
   ],
   exports: [
     HeaderComponent

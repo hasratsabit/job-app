@@ -1,0 +1,20 @@
+<form [formGroup]="addJobForm" (submit)="onPostJob()" class="elem-box__form">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Job Title</mat-label>
+      <input formControlName="jobTitle" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Company Name</mat-label>
+      <input formControlName="companyName" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Job Description</mat-label>
+      <textarea formControlName="jobDescription" matInput></textarea>
+    </mat-form-field>
+    
+    <div class="elem-box__buttons">
+      <button class="elem-box__button" mat-raised-button>Cancel</button>
+      <button [disabled]="!addJobForm.valid" type="submit" class="elem-box__button" mat-raised-button color="primary">Add Job</button>
+    </div>
+</form>   

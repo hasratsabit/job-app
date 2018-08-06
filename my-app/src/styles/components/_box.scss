@@ -6,7 +6,7 @@
     margin: 0 auto;
     box-shadow: $shadow-grey-small;
 
-    &--full {
+    &--large {
       @include respond(tab-land) {
         width: 90%;
       }
@@ -60,5 +60,33 @@
       &:not(:last-child) {
         margin-right: 10px;
       }
+    }
+
+    &__user-info {
+      @include clearfix;
+      padding-bottom: 10px;
+      // background: orange;
+    }
+
+    &__user-img {
+      float: left;
+      margin-right: 10px;
+    }
+
+    &__user-text-content {
+      float: left;
+      margin-top: 10px;
+      color: $color-grey-dark;
+    }
+
+    &__user-name {
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    &__user-email,
+    &__user-location {
+      margin-top: 5px;
+      font-size: .8rem;
     }
 }

@@ -11,6 +11,9 @@ export const userValidationData = {
       maxlength: 'Username cannot exceed 30 characters.',
       pattern: 'Username must not contain spaces and special characters.'
     },
+    userCategory: {
+      required: 'User category is required.'
+    },
     companyName: {
       required: 'The company field is required.',
       minlength: 'Company name must be at least 3 characters.',
