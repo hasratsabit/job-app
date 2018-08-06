@@ -1,3 +1,4 @@
+import { AuthService } from './../../shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public authService: AuthService
+  ) { }
+
+
+  onLogoutUser(){
+    this.authService.logoutUser().subscribe(res => {
+      this.authService.authToken = null;
+      localStorage.clear();
+      console.log(res.message);
+    })
+  }
 
   ngOnInit() {
+    this.authService.userStatus.subscribe(res => {
+      console.log(res._id);
+    });
   }
 
 }

@@ -8,16 +8,16 @@
       <li [routerLinkActive]="['active']" class="header__list-item">
         <a [routerLink]="['/home']" class="header__list-link">Home</a>
       </li>
-      <li [routerLinkActive]="['active']" class="header__list-item">
-        <a [routerLink]="['/user/login']" class="header__list-link">Login</a>
+      <li *ngIf="!authService.userIsLoggedIn()"  [routerLinkActive]="['active']" class="header__list-item">
+        <a [routerLink]="['/login']" class="header__list-link">Login</a>
       </li>
-      <li [routerLinkActive]="['active']" class="header__list-item">
+      <li *ngIf="!authService.userIsLoggedIn()" [routerLinkActive]="['active']" class="header__list-item">
         <a [routerLink]="['/register']" class="header__list-link">Register</a>
       </li>
-      <li [routerLinkActive]="['active']" class="header__list-item">
-        <a [routerLink]="['/user/logout']" class="header__list-link">Logout</a>
+      <li *ngIf="authService.userIsLoggedIn()" class="header__list-item">
+        <a (click)="onLogoutUser()" class="header__list-link">Logout</a>
       </li>
-      <li [routerLinkActive]="['active']" class="header__list-item">
+      <li *ngIf="authService.userIsLoggedIn()" [routerLinkActive]="['active']" class="header__list-item">
         <a [routerLink]="['/user/profile']" class="header__list-link">Profile</a>
       </li>
     </ul>

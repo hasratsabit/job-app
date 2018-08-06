@@ -7,14 +7,50 @@
     </div>
   
     <div class="elem-box__body">
-      <mat-tab-group dynamicHeight>
-        <mat-tab label="Job Seeker">
-          <app-job-seeker-register></app-job-seeker-register>
-        </mat-tab>
-    
-        <mat-tab label="Employer">
-          <app-employer-register></app-employer-register>
-        </mat-tab>
-      </mat-tab-group>
+      <form [formGroup]="registerForm" (submit)="onRegisterUser()" class="elem-box__form">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input formControlName="name" matInput>
+            <mat-error>{{displayMessages.name}}</mat-error>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input formControlName="username" matInput>
+            <mat-error>{{displayMessages.username}}</mat-error>
+          </mat-form-field>
+      
+          <div formGroupName="emailGroup">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input formControlName="email" type="email" matInput>
+              <mat-error>{{displayMessages.email}}</mat-error>
+            </mat-form-field>
+      
+            <mat-form-field appearance="outline">
+              <mat-label>Confirm Email</mat-label>
+              <input formControlName="confirmEmail" type="email" matInput>
+              <mat-error>{{displayMessages.errors}}</mat-error>
+            </mat-form-field>
+          </div>
+      
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input  formControlName="password" type="password" matInput>
+            <mat-error>{{displayMessages.password}}</mat-error>
+          </mat-form-field>
+      
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input  formControlName="confirmPassword" type="password" matInput>
+            <mat-error>{{displayMessages.confirm}}</mat-error>
+          </mat-form-field>
+      
+          <div class="elem-box__buttons">
+            <button class="elem-box__button" mat-raised-button>Cancel</button>
+            <button [disabled]="!registerForm.valid || processing" type="submit" class="elem-box__button" mat-raised-button color="primary">Register</button>
+          </div>
+        </form>        
     </div>
   </div>

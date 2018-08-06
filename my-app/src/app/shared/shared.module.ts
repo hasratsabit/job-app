@@ -1,16 +1,26 @@
+import { AuthGuard } from './guards/auth.guard';
 import { AddHeaderInterceptor } from './interceptors/add-header.interceptor';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModul } from './material.module';
-import { ErrorService } from './service/error.service';
+import { ErrorService } from './services/error.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     AngularMaterialModul,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        }
+      }
+    })
   ],
   declarations: [],
   exports: [
@@ -19,7 +29,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    ErrorService, 
+    ErrorService,
+    AuthService, 
+    AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true}
   ]
 })

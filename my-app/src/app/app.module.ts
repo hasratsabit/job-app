@@ -19,7 +19,7 @@ import { PlaygroundComponent } from './playground/playground.component';
     AppRoutingModule,
 
     SharedModule,
-    CoreModule
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

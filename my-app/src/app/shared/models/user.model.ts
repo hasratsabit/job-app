@@ -1,8 +1,6 @@
-export interface Employer {
+export interface User {
     name: string;
     username: string;
-    companyName: string;
-    companySize: number;
     email: string;
     confirmEmail: string;
     password: string;

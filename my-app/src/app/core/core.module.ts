@@ -6,9 +6,8 @@ import { CoreRoutingModule } from './core-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { EmployerRegisterComponent } from './register/employer-register/employer-register.component';
-import { JobSeekerRegisterComponent } from './register/job-seeker-register/job-seeker-register.component';
 import { RegisterService } from './services/register.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
@@ -19,7 +18,9 @@ import { RegisterService } from './services/register.service';
   ],
   declarations: [
     RegisterComponent, 
-    HeaderComponent, HomeComponent, EmployerRegisterComponent, JobSeekerRegisterComponent
+    HeaderComponent, 
+    HomeComponent, 
+    LoginComponent
   ],
   exports: [
     HeaderComponent

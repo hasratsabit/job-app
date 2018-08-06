@@ -3,11 +3,11 @@ const express = require('express');
 const router = express.Router();
 
 // Routes
-const employerRoute = require('./routes/employers');
+const userRoute = require('./routes/users');
 
 
 
-router.use('/employer', employerRoute);
+router.use('/users', userRoute);
 
 
 module.exports = router;

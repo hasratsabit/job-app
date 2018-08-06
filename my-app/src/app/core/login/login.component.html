@@ -1,0 +1,29 @@
+
+
+<div class="elem-box elem-box--medium">
+  <div class="elem-box__header">
+    <h1 class="elem-box__header-title">Login</h1>
+  </div>
+
+  <div class="elem-box__body">
+    <form [formGroup]="loginForm" (submit)="onLoginUser()" class="elem-box__form">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input formControlName="username" matInput>
+        <mat-error *ngIf="loginForm.controls.username.errors?.required">Username is required.</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input  formControlName="password" type="password" matInput>
+        <mat-error *ngIf="loginForm.controls.password.errors?.required">Password is required.</mat-error>
+      </mat-form-field>
+    
+      <div class="elem-box__buttons">
+        <button class="elem-box__button" mat-raised-button>Cancel</button>
+        <button [disabled]="!loginForm.valid || processing" type="submit" class="elem-box__button" mat-raised-button color="primary">Login</button>
+      </div>
+    </form>
+  </div>
+</div>
