@@ -2,6 +2,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 import { Job } from './../../../shared/models/job.model';
+import { JobService } from '../../services/job.service';
 
 @Component({
   selector: 'app-add-job',
@@ -13,6 +14,7 @@ export class AddJobComponent implements OnInit {
   public addJobForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
+    private jobService: JobService
   ) { 
     this.addJobForm = this.formBuilder.group({
       jobTitle: ['', Validators.required],
@@ -24,7 +26,11 @@ export class AddJobComponent implements OnInit {
 
   onPostJob() {
     const job: Job = this.addJobForm.value;
-    console.log(job);
+    this.jobService.addJob(job).subscribe(res => {
+      console.log(res);
+    }, (err) => {
+      console.log(err);
+    })
   }
 
   ngOnInit() {

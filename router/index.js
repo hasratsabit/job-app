@@ -3,11 +3,13 @@ const express = require('express');
 const router = express.Router();
 
 // Routes
-const userRoute = require('./routes/users');
+const usersRoute = require('./routes/users');
+const jobsRoute = require('./routes/jobs');
 
 
 
-router.use('/users', userRoute);
+router.use('/users', usersRoute);
+router.use('/jobs', jobsRoute);
 
 
 module.exports = router;
