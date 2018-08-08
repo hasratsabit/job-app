@@ -7,6 +7,7 @@ import { AngularMaterialModul } from './material.module';
 import { ErrorService } from './services/error.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
+import { ProfileResolverService } from './resolvers/profile-resolver.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +24,7 @@ import { AuthService } from './services/auth.service';
     ErrorService,
     AuthService, 
     AuthGuard,
+    ProfileResolverService,
     { provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true}
   ]
 })

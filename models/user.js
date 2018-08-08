@@ -11,6 +11,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   name: { type: String, required: true, minlength: 2, maxlength: 30 },
   username: { type: String, required: true, unique: true, minlength: 5, maxlength: 30 },
+  location: { type: String, required: true, minlength: 3, maxlength: 30},
   email: { type: String, required: true, unique: true, minlength: 3, maxlength: 30 },
   password: { type: String, required: true },
   userCategory: { type: String, required: true },
@@ -29,7 +30,6 @@ const UserSchema = new Schema({
 // We don't use the arrow function here, because the keyword doesn't point to the object instance.
 UserSchema.methods.generateAuthToken = generateAuthToken;
 UserSchema.statics.findByToken = findByToken;
-UserSchema.statics.findByCredentials = findByCredentials;
 UserSchema.methods.removeToken = removeToken;
 
 
@@ -55,7 +55,9 @@ UserSchema.pre('save', function(next) {
  })
  
  
-
+UserSchema.methods.comparePassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+}
 
 const User = mongoose.model('Users', UserSchema);
 module.exports = User;

@@ -82,6 +82,11 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         Validators.maxLength(30),
         Validators.pattern(/^[a-zA-Z-0-9]{5,30}$/)
       ])],
+      location: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30),
+      ])],
       userCategory: ['', Validators.required],
       emailGroup: this.formBuilder.group({
         email: ['', Validators.compose([

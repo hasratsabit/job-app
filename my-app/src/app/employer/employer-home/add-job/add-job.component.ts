@@ -12,6 +12,7 @@ import { JobService } from '../../services/job.service';
 export class AddJobComponent implements OnInit {
 
   public addJobForm: FormGroup;
+  public processing: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private jobService: JobService
@@ -25,12 +26,27 @@ export class AddJobComponent implements OnInit {
 
 
   onPostJob() {
+    this.addJobForm.disable();
+    this.processing = true;
     const job: Job = this.addJobForm.value;
     this.jobService.addJob(job).subscribe(res => {
-      console.log(res);
+      this.addJobCompleted(res);
     }, (err) => {
       console.log(err);
     })
+  }
+
+  addJobCompleted(res) {
+    if(res.success) {
+      this.addJobForm.enable();
+      this.addJobForm.reset();
+      this.processing = false;
+      console.log(res.message);
+    }else {
+      this.addJobForm.enable();
+      this.processing = false;
+      console.log(res);
+    }
   }
 
   ngOnInit() {

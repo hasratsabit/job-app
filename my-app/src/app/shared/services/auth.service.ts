@@ -12,7 +12,7 @@ export class AuthService {
   
   public url: string = 'http://localhost:3000';
   public authToken: string
-  private user: User;
+  public user: string;
   public userStatus = new Subject<any>();
 
   constructor(
@@ -26,6 +26,10 @@ export class AuthService {
 
   loginUser(user: User): Observable<any> {
     return this.http.post<any>(`${this.url}/users/login`, user);
+  }
+
+  getUserProfile(): Observable<User> {
+    return this.http.get<User>(`${this.url}/users/profile`);
   }
 
 
@@ -51,9 +55,15 @@ export class AuthService {
     this.authToken = localStorage.getItem('token') || 'novalue';
   }
 
-  storeApiToken(token) {
-    localStorage.setItem('token', token);
-    this.authToken = token;
+  loadStorageUser() {
+    const user = localStorage.getItem('user');
+    return JSON.parse(user);
+  }
 
+  storeApiToken(token, user) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.authToken = token;
+    this.user = user;
   }
 }

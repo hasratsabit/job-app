@@ -12,42 +12,40 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  public loginForm: FormGroup
+  public loginForm: FormGroup;
   public processing: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
-  ) { 
-    this.loginForm = this.formBuilder.group({
+  ) { this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
-    })
+    });
   }
 
 
   onLoginUser() {
+    this.processing = true;
+    this.loginForm.disable();
     const user: User = this.loginForm.value;
     this.authService.loginUser(user).subscribe((res) => {
       this.loginCompleted(res);
-    }, (err) => console.log(err));
+    }, (err) => {
+      console.log(err);
+    });
   }
 
 
   loginCompleted(res) {
-    this.authService.storeApiToken(res.token);
-    this.authService.userSignedIn(res.userData);
-    this.loginForm.disable();
-    this.processing = true;
-    
-    if(res.userData.userCategory === 'employer') {
-      setTimeout(() => {
-        this.router.navigate(['/employer']);
-      }, 2000);
-    }else {
-      setTimeout(() => {
-        this.router.navigate(['/jobseeker']);
-      }, 2000);
+    if(res.success) {
+      this.authService.storeApiToken(res.token, res.data); // Store the data in the storage.
+      this.router.navigate([`${res.data.userCategory}`]);
+      console.log(res.message);
+    } else {
+      this.processing = false;
+      this.loginForm.enable();
+      console.log(res);
     }
 
   }

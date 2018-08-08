@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, Event } from '@angular/router';
 import { AuthService } from './../../shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -28,6 +28,11 @@ export class HeaderComponent implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/home']);
     }, 2000);
+  }
+
+  onLoadUser() {
+    const user = this.authService.loadStorageUser();
+    this.router.navigate([`${user.userCategory}`]);
   }
 
   ngOnInit() {

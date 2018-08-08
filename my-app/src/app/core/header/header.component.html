@@ -18,7 +18,7 @@
         <a (click)="onLogoutUser()" class="header__list-link">Logout</a>
       </li>
       <li *ngIf="authService.userIsLoggedIn()" [routerLinkActive]="['active']" class="header__list-item">
-        <a [routerLink]="['/user/profile']" class="header__list-link">Profile</a>
+        <a (click)="onLoadUser()" class="header__list-link">Profile</a>
       </li>
     </ul>
   </div>
