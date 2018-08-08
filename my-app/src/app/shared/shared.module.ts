@@ -8,6 +8,7 @@ import { ErrorService } from './services/error.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { ProfileResolverService } from './resolvers/profile-resolver.service';
+import { DataService } from './services/data.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +23,8 @@ import { ProfileResolverService } from './resolvers/profile-resolver.service';
   ],
   providers: [
     ErrorService,
-    AuthService, 
+    AuthService,
+    DataService, 
     AuthGuard,
     ProfileResolverService,
     { provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true}

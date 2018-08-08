@@ -4,15 +4,23 @@ import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../models/user.model';
 import { ErrorService } from './error.service';
 import { catchError } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { PopupModal } from '../models/popup.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
+  public sharedNotification = new Subject<PopupModal>();
+
   public url: string = 'http://localhost:3000';
   constructor(
     private http: HttpClient,
     private errorService: ErrorService
   ) { }
+
+  notify(data) {
+    this.sharedNotification.next(data);
+  }
 }

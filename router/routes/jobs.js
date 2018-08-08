@@ -24,5 +24,21 @@ router.post('/', authenticate, async (req, res) => {
 });
 
 
+// Get Jobs By Creators
+router.get('/creator', authenticate, async (req, res) => {
+  try {
+    const creatorId = req.user._id;
+    const jobs = await Job.findOne({creator: creatorId});
+    if(!jobs) {
+      res.json({ success: false, message: `No jobs found.`});
+    } else {
+      res.json({ success: true, jobs: jobs });
+    } 
+  } catch (err) {
+    res.json({ success: true, message: `Error occurred ${err}`});
+  }
+})
+
+
 
 module.exports = router;
