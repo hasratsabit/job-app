@@ -1,3 +1,4 @@
+import { AlertModel } from './../../shared/models/alert.model';
 import { AuthService } from './../../shared/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -14,6 +15,8 @@ export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
   public processing: boolean = false;
+  public alertData: AlertModel = {alertClass: "", alertMessage: ""};
+  public alertMessageIsShown: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -38,16 +41,30 @@ export class LoginComponent implements OnInit {
 
 
   loginCompleted(res) {
+    this.showAlertMessage(res);
     if(res.success) {
       this.authService.storeApiToken(res.token, res.data); // Store the data in the storage.
-      this.router.navigate([`${res.data.userCategory}`]);
-      console.log(res.message);
     } else {
       this.processing = false;
       this.loginForm.enable();
-      console.log(res);
     }
+  }
 
+  showAlertMessage(res) {
+    this.alertMessageIsShown = true;
+    if(res.success) {
+      this.alertData.alertClass = "alert--success";
+      this.alertData.alertMessage = res.message;
+    } else {
+      this.alertData.alertMessage = res.message;
+      this.alertData.alertClass = "alert--error"
+    }
+    setTimeout(() => {
+      this.alertMessageIsShown = false;
+      if(res.success) {
+        this.router.navigate([`${res.data.userCategory}`]);
+      }
+    }, 3000)
   }
 
   ngOnInit() {

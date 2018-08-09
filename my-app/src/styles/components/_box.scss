@@ -42,6 +42,10 @@
       color: $color-white;
     }
 
+    &__alert-message {
+      margin: 10px 0;
+    }
+
     &__body {
       width: 100%;
       padding: 20px 40px;

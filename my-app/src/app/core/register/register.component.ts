@@ -1,3 +1,4 @@
+import { AlertModel } from './../../shared/models/alert.model';
 import { AuthService } from './../../shared/services/auth.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, FormControlName } from '@angular/forms';
 import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef, Input } from '@angular/core';
@@ -53,6 +54,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   private genericValidation: GenericValidation;
   public processing: boolean = false;
   public registerForm: FormGroup;
+  public alertData: AlertModel = {alertClass: "", alertMessage: ""};
+  public alertMessageIsShown: boolean = false;
   // public userCategories: string[] = ['jobseeker', 'employer', 'admin'];
 
   constructor(
@@ -119,10 +122,25 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   registerationCompleted(res) {
     this.processing = true;
     this.registerForm.disable();
-    console.log(res.message);
+    this.showAlertMessage(res);
+  }
+
+  showAlertMessage(res) {
+    this.alertMessageIsShown = true;
+    if(res.success) {
+      this.alertData.alertClass = "alert--success";
+      this.alertData.alertMessage = res.message;
+    } else {
+      this.alertData.alertClass = "alert--error";
+      this.alertData.alertMessage = res.message;
+    }
+
     setTimeout(() => {
-      this.router.navigate(['/login']);
-    }, 2000);
+      if(res.success) {
+        this.router.navigate(['/login']);
+      }
+      this.alertMessageIsShown = false;
+    }, 3000);
   }
 
   ngOnInit() {

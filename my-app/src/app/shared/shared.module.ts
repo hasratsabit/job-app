@@ -9,17 +9,20 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { ProfileResolverService } from './resolvers/profile-resolver.service';
 import { DataService } from './services/data.service';
+import { AlertComponent } from './alert/alert.component';
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     AngularMaterialModul
   ],
-  declarations: [],
+  declarations: [
+  AlertComponent],
   exports: [
     ReactiveFormsModule,
     AngularMaterialModul,
-    HttpClientModule
+    HttpClientModule,
+    AlertComponent
   ],
   providers: [
     ErrorService,

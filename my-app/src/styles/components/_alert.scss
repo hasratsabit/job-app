@@ -1,0 +1,17 @@
+
+.alert {
+  border-radius: 3px;
+  transition: all 300ms ease-in-out;
+  &--success {
+    background: $color-green-light;
+  }
+
+  &--error {
+    background: $color-red-dark;
+  }
+
+  &__message {
+    padding: 15px;
+    color: $color-white;
+  }
+}

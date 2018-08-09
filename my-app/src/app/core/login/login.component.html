@@ -6,6 +6,11 @@
   </div>
 
   <div class="elem-box__body">
+
+    <div class="elem-box__alert-message">
+      <app-alert *ngIf="alertMessageIsShown" [alertData]="alertData"></app-alert>
+    </div>
+    
     <form [formGroup]="loginForm" (submit)="onLoginUser()" class="elem-box__form">
 
       <mat-form-field appearance="outline">

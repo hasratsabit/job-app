@@ -9,7 +9,6 @@ import { HomeComponent } from './home/home.component';
 import { RegisterService } from './services/register.service';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
   imports: [
@@ -22,10 +21,10 @@ import { PopupComponent } from './popup/popup.component';
     RegisterComponent, 
     HeaderComponent, 
     HomeComponent, 
-    LoginComponent, PageNotFoundComponent, PopupComponent
+    LoginComponent, PageNotFoundComponent
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
   ],
   providers: [RegisterService]
 })

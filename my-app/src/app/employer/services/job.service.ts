@@ -1,5 +1,6 @@
+import { tap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-import { Job } from './../../shared/models/job.model';
+import { JobModel } from './../../shared/models/job.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -15,7 +16,11 @@ export class JobService {
   ) { }
 
 
-  addJob(job: Job): Observable<any> {
+  addJob(job: JobModel): Observable<any> {
     return this.http.post<any>(this.url, job);
+  }
+
+  getJobsByCreator(): Observable<JobModel[]> {
+    return this.http.get<JobModel[]>(`${this.url}/creator`)
   }
 }
