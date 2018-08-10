@@ -22,5 +22,9 @@ export class JobService {
 
   getJobsByCreator(): Observable<JobModel[]> {
     return this.http.get<JobModel[]>(`${this.url}/creator`)
+      .pipe(
+        map((data: any) => data.jobs),
+        tap(data => JSON.stringify(data))
+      )
   }
 }

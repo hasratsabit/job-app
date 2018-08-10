@@ -28,7 +28,7 @@ router.post('/', authenticate, async (req, res) => {
 router.get('/creator', authenticate, async (req, res) => {
   try {
     const creatorId = req.user._id;
-    const jobs = await Job.findOne({creator: creatorId});
+    const jobs = await Job.find({creator: creatorId});
     if(!jobs) {
       res.json({ success: false, message: `No jobs found.`});
     } else {

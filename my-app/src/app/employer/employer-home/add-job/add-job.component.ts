@@ -1,8 +1,11 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
-import { Job } from './../../../shared/models/job.model';
+import { JobModel } from './../../../shared/models/job.model';
 import { JobService } from '../../services/job.service';
+import { AlertModel } from '../../../shared/models/alert.model';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-add-job',
@@ -13,9 +16,13 @@ export class AddJobComponent implements OnInit {
 
   public addJobForm: FormGroup;
   public processing: boolean = false;
+  public alertMessageIsShown: boolean = false;
+  public alertData: AlertModel = {alertClass: "", alertMessage: ""};
+
   constructor(
     private formBuilder: FormBuilder,
-    private jobService: JobService
+    private jobService: JobService,
+    private router: Router
   ) { 
     this.addJobForm = this.formBuilder.group({
       jobTitle: ['', Validators.required],
@@ -28,7 +35,7 @@ export class AddJobComponent implements OnInit {
   onPostJob() {
     this.addJobForm.disable();
     this.processing = true;
-    const job: Job = this.addJobForm.value;
+    const job: JobModel = this.addJobForm.value;
     this.jobService.addJob(job).subscribe(res => {
       this.addJobCompleted(res);
     }, (err) => {
@@ -37,16 +44,33 @@ export class AddJobComponent implements OnInit {
   }
 
   addJobCompleted(res) {
+    this.showAlertMessage(res);
     if(res.success) {
       this.addJobForm.enable();
       this.addJobForm.reset();
       this.processing = false;
-      console.log(res.message);
     }else {
       this.addJobForm.enable();
       this.processing = false;
-      console.log(res);
     }
+  }
+
+  showAlertMessage(res) {
+    this.alertMessageIsShown = true;
+    if(res.success) {
+      this.alertData.alertClass = "alert--success";
+      this.alertData.alertMessage = res.message;
+    } else {
+      this.alertData.alertClass = "alert--success";
+      this.alertData.alertMessage = res.message;
+    }
+
+    setTimeout(() => {
+      if(res.success) {
+        this.router.navigate(['/employer/job-list']);
+      }
+      this.alertMessageIsShown = false;
+    }, 3000)
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 <mat-form-field>
   <input matInput placeholder="Search for jobs">
 </mat-form-field>
-<table *ngIf="allJobs.length" class="job-table">
+<table class="job-table">
   <tr>
     <th>No</th>
     <th>Job Title</th>
@@ -12,14 +12,14 @@
     <th>Edit</th>
     <th>Delete</th>
   </tr>
-  <tr *ngFor="let job of allJobs; index as i">
+  <tr *ngFor="let job of allJobs | async; index as i">
     <td>{{ i + 1 }}</td>
     <td>{{ job.jobTitle }}</td>
     <td>{{ job.companyName }}</td>
     <td>{{ job.createdAt | date: 'MMM dd, yyyy'}}</td>
     <td>{{ job.applicants.length }}</td>
-    <td><a class="job-table__view" href="">View</a></td>
-    <td><a class="job-table__edit" href="">Edit</a></td>
-    <td><a class="job-table__delete" href="">Delete</a></td>
+    <td><a [routerLink]="['/employer/job-detail', job._id]" class="job-table__view">View</a></td>
+    <td><a [routerLink]="['/employer/edit-job', job._id]" class="job-table__edit">Edit</a></td>
+    <td><a [routerLink]="['/employer/delete-job', job._id]" class="job-table__delete">Delete</a></td>
   </tr>
 </table>

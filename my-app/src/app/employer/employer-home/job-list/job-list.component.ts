@@ -2,6 +2,7 @@ import { JobService } from './../../services/job.service';
 import { JobModel } from './../../../shared/models/job.model';
 
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-job-list',
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobListComponent implements OnInit {
 
-  public allJobs: JobModel[] = [];
+  public allJobs:Observable<JobModel[]>;
 
   constructor(
     private jobService: JobService
@@ -19,9 +20,7 @@ export class JobListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.jobService.getJobsByCreator().subscribe((jobs: any) => {
-      this.allJobs.push(jobs.jobs)
-    })
+   this.allJobs = this.jobService.getJobsByCreator();
   }
 
 }

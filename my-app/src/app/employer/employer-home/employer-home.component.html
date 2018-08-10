@@ -17,20 +17,15 @@
           <p class="elem-box__user-location">{{ profile.location }}</p>
         </div>
       </div>
-
-      <mat-tab-group>
-        <!-- <mat-tab label="Overview"> 
-          Overview
-        </mat-tab> -->
-        <mat-tab label="Posted Jobs">
-          <app-job-list></app-job-list>
-        </mat-tab>
-        <mat-tab label="Applications"> Content 3 </mat-tab>
-        <mat-tab label="Shortlists"> Content 3 </mat-tab>
-        <mat-tab label="Add Job">
-            <app-add-job></app-add-job>
-        </mat-tab>
-      </mat-tab-group>
+      <div class="app-tab">
+        <ul class="app-tab__list">
+            <li [routerLinkActive]="['active']" class="app-tab__list-item"><a [routerLink]="['/employer/employer-overview']" class="app-tab__list-link">Overview</a></li>
+            <li [routerLinkActive]="['active']" class="app-tab__list-item"><a [routerLink]="['/employer/applicants']" class="app-tab__list-link">Applicants</a></li>
+            <li [routerLinkActive]="['active']" class="app-tab__list-item"><a [routerLink]="['/employer/job-list']" class="app-tab__list-link">Job List</a></li>
+            <li [routerLinkActive]="['active']" class="app-tab__list-item"><a [routerLink]="['/employer/add-job']" class="app-tab__list-link">Add Job</a></li>
+        </ul>
     </div>
-  
+    <router-outlet></router-outlet>
+    </div>
 </div>
+

@@ -1,5 +1,8 @@
-<form [formGroup]="addJobForm" (submit)="onPostJob()" class="elem-box__form">
+<div class="elem-box__alert-message">
+  <app-alert *ngIf="alertMessageIsShown" [alertData]="alertData"></app-alert>
+</div>
 
+<form [formGroup]="addJobForm" (submit)="onPostJob()" class="elem-box__form">
     <mat-form-field appearance="outline">
       <mat-label>Job Title</mat-label>
       <input formControlName="jobTitle" matInput>
