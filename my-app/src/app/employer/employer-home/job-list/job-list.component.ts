@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { JobService } from './../../services/job.service';
 import { JobModel } from './../../../shared/models/job.model';
 
@@ -11,16 +12,17 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class JobListComponent implements OnInit {
 
-  public allJobs:Observable<JobModel[]>;
+  public allJobs: JobModel[];
 
   constructor(
-    private jobService: JobService
+    private jobService: JobService,
+    private route: ActivatedRoute
   ) { }
 
 
 
   ngOnInit() {
-   this.allJobs = this.jobService.getJobsByCreator();
+   this.allJobs = this.route.snapshot.data['jobs'];
   }
 
 }

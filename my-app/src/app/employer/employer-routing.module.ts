@@ -1,3 +1,5 @@
+import { SingleJobResolverService } from './../shared/resolvers/single-job-resolver.service';
+import { JobListResolverService } from './resolvers/job-list-resolver.service';
 import { AuthGuard } from './../shared/guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -20,8 +22,8 @@ const routes: Routes = [
       { path: "employer-overview", component: EmployerOverviewComponent},
       { path: "applicants", component: ApplicantsComponent},
       { path: "add-job", component: AddJobComponent },
-      { path: "job-list", component: JobListComponent },
-      { path: "edit-job/:id", component: EditJobComponent },
+      { path: "job-list", component: JobListComponent, resolve: { jobs: JobListResolverService} },
+      { path: "edit-job/:id", component: EditJobComponent, resolve: {job: SingleJobResolverService} },
       { path: "delete-job/:id", component: DeleteJobComponent },
       { path: "job-detail/:id", component: JobDetailComponent },
     ]

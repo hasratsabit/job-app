@@ -12,6 +12,7 @@ import { EmployerOverviewComponent } from './employer-home/employer-overview/emp
 import { ApplicantsComponent } from './employer-home/applicants/applicants.component';
 import { DeleteJobComponent } from './employer-home/delete-job/delete-job.component';
 import { JobDetailComponent } from './employer-home/job-detail/job-detail.component';
+import { JobListResolverService } from './resolvers/job-list-resolver.service';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { JobDetailComponent } from './employer-home/job-detail/job-detail.compon
     SharedModule
   ],
   declarations: [EmployerHomeComponent, AddJobComponent, JobListComponent, EditJobComponent, EmployerOverviewComponent, ApplicantsComponent, DeleteJobComponent, JobDetailComponent],
-  providers: [JobService]
+  providers: [JobService, JobListResolverService]
 })
 export class EmployerModule { }

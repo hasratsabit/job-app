@@ -1,0 +1,19 @@
+
+.app-icon {
+
+  &--small {
+    font-size: 1rem;
+  }
+
+  &__view {
+    color: $color-primary-light;
+  }
+
+  &__edit {
+    color: $color-green-light;
+  }
+
+  &__delete {
+    color: $color-red-dark;
+  }
+}

@@ -1,3 +1,4 @@
+import { FormProcesserService } from './../../../shared/services/form-processer.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -5,6 +6,7 @@ import { JobModel } from './../../../shared/models/job.model';
 import { JobService } from '../../services/job.service';
 import { AlertModel } from '../../../shared/models/alert.model';
 import { Router } from '@angular/router';
+import { Response } from '../../../shared/models/response.model';
 
 
 @Component({
@@ -16,13 +18,14 @@ export class AddJobComponent implements OnInit {
 
   public addJobForm: FormGroup;
   public processing: boolean = false;
-  public alertMessageIsShown: boolean = false;
-  public alertData: AlertModel = {alertClass: "", alertMessage: ""};
+  public alertMessageIsShown: boolean;
+  public routedPage: string;
+  public alertData: AlertModel;
 
   constructor(
     private formBuilder: FormBuilder,
     private jobService: JobService,
-    private router: Router
+    private formProService: FormProcesserService,
   ) { 
     this.addJobForm = this.formBuilder.group({
       jobTitle: ['', Validators.required],
@@ -36,44 +39,22 @@ export class AddJobComponent implements OnInit {
     this.addJobForm.disable();
     this.processing = true;
     const job: JobModel = this.addJobForm.value;
-    this.jobService.addJob(job).subscribe(res => {
-      this.addJobCompleted(res);
+    this.jobService.addJob(job).subscribe((response: Response) => {
+      this.addJobIsCompleted(response);
     }, (err) => {
       console.log(err);
     })
   }
 
-  addJobCompleted(res) {
-    this.showAlertMessage(res);
-    if(res.success) {
-      this.addJobForm.enable();
-      this.addJobForm.reset();
-      this.processing = false;
-    }else {
-      this.addJobForm.enable();
-      this.processing = false;
-    }
+  addJobIsCompleted(response: Response) {
+    this.alertMessageIsShown = this.formProService.alertMessageIsShowing;
+    this.formProService.processingForm = this.addJobForm;
+    this.alertData = this.formProService.message;
+    this.formProService.routedPage = "/employer/job-list";
+    this.formProService.formProccessCompleted(response);
   }
-
-  showAlertMessage(res) {
-    this.alertMessageIsShown = true;
-    if(res.success) {
-      this.alertData.alertClass = "alert--success";
-      this.alertData.alertMessage = res.message;
-    } else {
-      this.alertData.alertClass = "alert--success";
-      this.alertData.alertMessage = res.message;
-    }
-
-    setTimeout(() => {
-      if(res.success) {
-        this.router.navigate(['/employer/job-list']);
-      }
-      this.alertMessageIsShown = false;
-    }, 3000)
-  }
-
   ngOnInit() {
+    
   }
 
 }

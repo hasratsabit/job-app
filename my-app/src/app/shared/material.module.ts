@@ -8,9 +8,10 @@ import {
   MatInputModule,
   MatSelectModule,
   MatTableModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
   
 } from '@angular/material';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTableModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule
 
   ],
   exports: [
@@ -34,7 +36,8 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTableModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule
 
     
   ]

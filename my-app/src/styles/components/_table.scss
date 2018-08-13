@@ -1,4 +1,4 @@
-.job-table {
+.app-table {
 
 
   border-spacing: 0;
@@ -23,17 +23,6 @@
     &:hover {
       background: $color-grey-light;
     }
-  }
-
-  &__view {
-    color: $color-primary-light;
-  }
-  &__edit {
-    color: $color-green-light;
-  }
-
-  &__delete {
-    color: $color-red-dark;
   }
 
   a {

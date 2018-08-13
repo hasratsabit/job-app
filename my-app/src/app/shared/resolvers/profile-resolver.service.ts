@@ -9,8 +9,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class ProfileResolverService implements Resolve<User> {
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<User> {

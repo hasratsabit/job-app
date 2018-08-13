@@ -10,6 +10,7 @@ import { AuthService } from './services/auth.service';
 import { ProfileResolverService } from './resolvers/profile-resolver.service';
 import { DataService } from './services/data.service';
 import { AlertComponent } from './alert/alert.component';
+import { FormProcesserService } from './services/form-processer.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,6 +29,7 @@ import { AlertComponent } from './alert/alert.component';
     ErrorService,
     AuthService,
     DataService, 
+    FormProcesserService,
     AuthGuard,
     ProfileResolverService,
     { provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true}
