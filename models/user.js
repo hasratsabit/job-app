@@ -14,17 +14,7 @@ const UserSchema = new Schema({
   location: { type: String, required: true, minlength: 3, maxlength: 30},
   email: { type: String, required: true, unique: true, minlength: 3, maxlength: 30 },
   password: { type: String, required: true },
-  userCategory: { type: String, required: true },
-  tokens: [{
-    access: {
-      type: String,
-      required: true
-    },
-    token: {
-      type: String,
-      required: true
-    }
-  }]
+  userCategory: { type: String, required: true }
 });
 
 // We don't use the arrow function here, because the keyword doesn't point to the object instance.

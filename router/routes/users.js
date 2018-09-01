@@ -46,15 +46,6 @@ router.post('/login', async (req, res) => {
 });
 
 
-// Logout User
-router.delete('/logout', authenticate, async (req, res) => {
-  try {
-    await req.user.removeToken(req.token);
-    res.json({ success: true, message: `You are successfully logged out.`});
-  } catch(err) {
-    res.status(400).json({ success: false, message: `Error occurred: ${err}`});
-  }
-});
 
 // Get Single User
 router.get('/profile', authenticate, async (req, res) => {

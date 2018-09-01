@@ -2,7 +2,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AddHeaderInterceptor } from './interceptors/add-header.interceptor';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularMaterialModul } from './material.module';
 import { ErrorService } from './services/error.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -11,19 +11,28 @@ import { ProfileResolverService } from './resolvers/profile-resolver.service';
 import { DataService } from './services/data.service';
 import { AlertComponent } from './alert/alert.component';
 import { FormProcesserService } from './services/form-processer.service';
+import { CachingService } from './services/caching.service';
+import { CacheInterceptor } from './interceptors/cache.interceptor';
+import { SweetAlertComponent } from './components/sweet-alert/sweet-alert.component';
+import { SweetAlertService } from './services/sweet-alert.service';
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AngularMaterialModul
+    AngularMaterialModul,
+    FormsModule
   ],
   declarations: [
-  AlertComponent],
+  AlertComponent,
+  SweetAlertComponent
+],
   exports: [
     ReactiveFormsModule,
     AngularMaterialModul,
+    FormsModule,
     HttpClientModule,
-    AlertComponent
+    AlertComponent,
+    SweetAlertComponent
   ],
   providers: [
     ErrorService,
@@ -32,7 +41,10 @@ import { FormProcesserService } from './services/form-processer.service';
     FormProcesserService,
     AuthGuard,
     ProfileResolverService,
-    { provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true}
+    CachingService,
+    SweetAlertService,
+    { provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true},
   ]
 })
 export class SharedModule { }

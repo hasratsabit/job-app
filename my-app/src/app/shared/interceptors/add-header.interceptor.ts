@@ -11,6 +11,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // console.log(req.url);
     this.authService.loadToken();
     const jsonReq: HttpRequest<any> = req.clone({
       setHeaders: {

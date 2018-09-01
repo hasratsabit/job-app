@@ -2,6 +2,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { JobModel } from './../../../shared/models/job.model';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-job',
@@ -15,13 +16,19 @@ export class EditJobComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private location: Location
   ) {
     this.updateJobForm = this.formBuilder.group({
       jobTitle: ['', Validators.required],
       companyName: ['', Validators.required],
       jobDescription: ['', Validators.required],
     })
+   }
+
+   onCancel(e) {
+     e.preventDefault();
+     this.location.back();
    }
 
   ngOnInit() {

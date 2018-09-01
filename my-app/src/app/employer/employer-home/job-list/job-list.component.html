@@ -1,8 +1,11 @@
+<app-sweet-alert></app-sweet-alert>
+<mat-form-field>
+  <input #query (keyup)="onSearchList(query.value)" matInput placeholder="Search for jobs">
+</mat-form-field>
+
 <h1 *ngIf="allJobs.length === 0">No job is posted yet.</h1>
 <div *ngIf="allJobs.length > 0">
-  <mat-form-field>
-    <input matInput placeholder="Search for jobs">
-  </mat-form-field>
+
   <table class="app-table">
     <tr>
       <th>No</th>
@@ -14,7 +17,7 @@
       <th>Edit</th>
       <th>Delete</th>
     </tr>
-    <tr *ngFor="let job of allJobs; index as i">
+    <tr *ngFor="let job of filteredJobs; index as i">
       <td>{{ i + 1 }}</td>
       <td>{{ job.jobTitle }}</td>
       <td>{{ job.companyName }}</td>
@@ -22,7 +25,7 @@
       <td>{{ job.applicants.length }}</td>
       <td><a [routerLink]="['/employer/job-detail', job._id]" class="app-table__view"><mat-icon class="app-icon app-icon__view app-icon--small">open_in_new</mat-icon></a></td>
       <td><a [routerLink]="['/employer/edit-job', job._id]" class="app-table__edit"><mat-icon class="app-icon app-icon__edit app-icon--small">edit</mat-icon></a></td>
-      <td><a [routerLink]="['/employer/delete-job', job._id]" class="app-table__delete"><mat-icon class="app-icon app-icon__delete app-icon--small">delete</mat-icon></a></td>
+      <td><a (click)="onDeleteJob(job._id)" class="app-table__delete"><mat-icon class="app-icon app-icon__delete app-icon--small">delete</mat-icon></a></td>
     </tr>
   </table>
 </div>

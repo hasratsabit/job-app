@@ -5,8 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { JobModel } from './../../../shared/models/job.model';
 import { JobService } from '../../services/job.service';
 import { AlertModel } from '../../../shared/models/alert.model';
-import { Router } from '@angular/router';
 import { Response } from '../../../shared/models/response.model';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -26,6 +26,7 @@ export class AddJobComponent implements OnInit {
     private formBuilder: FormBuilder,
     private jobService: JobService,
     private formProService: FormProcesserService,
+    private location: Location
   ) { 
     this.addJobForm = this.formBuilder.group({
       jobTitle: ['', Validators.required],
@@ -52,6 +53,11 @@ export class AddJobComponent implements OnInit {
     this.alertData = this.formProService.message;
     this.formProService.routedPage = "/employer/job-list";
     this.formProService.formProccessCompleted(response);
+  }
+
+  onCancel(e) {
+    e.preventDefault();
+    this.location.back();
   }
   ngOnInit() {
     

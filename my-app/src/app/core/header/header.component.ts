@@ -16,15 +16,8 @@ export class HeaderComponent implements OnInit {
 
 
   onLogoutUser(){
-    this.authService.logoutUser().subscribe(res => {
-      this.logoutCompleted(res);
-    })
-  }
-
-  logoutCompleted(res) {
     this.authService.authToken = null;
     localStorage.clear();
-    console.log(res.message);
     setTimeout(() => {
       this.router.navigate(['/home']);
     }, 2000);

@@ -13,7 +13,7 @@ router.post('/', authenticate, async (req, res) => {
       jobTitle: req.body.jobTitle,
       companyName: req.body.companyName,
       jobDescription: req.body.jobDescription,
-      creator: req.user._id
+      creator: req.user.username
     })
 
     const data = await job.save();
@@ -27,8 +27,7 @@ router.post('/', authenticate, async (req, res) => {
 // Get Jobs By Creators
 router.get('/creator', authenticate, async (req, res) => {
   try {
-    const creatorId = req.user._id;
-    const jobs = await Job.find({creator: creatorId});
+    const jobs = await Job.find({creator: req.user.username });
     if(!jobs) {
       res.json({ success: false, message: `No jobs found.`});
     } else {
@@ -57,13 +56,12 @@ router.get('/:id', async (req, res) => {
 // Edit Job
 router.delete('/:id', authenticate, async (req, res) => {
   try {
-    const jobId = req.params.id;
-    const job = await Job.findOne({_id: jobId});
-    if(job.creator === req.user._id) {
+    const job = await Job.findOne({_id: req.params.id});
+    if(job.creator !== req.user.username) {
+      res.json({ success: false, message: "You are not authorized to delete this job."});
+    } else {
       await job.remove();
       res.json({ success: true, message: "Listed job has been deleted."});
-    } else {
-      res.json({ success: false, message: "You are not authorized to delete this job."});
     }
   } catch (err) {
     res.json({ success: false, message: `Error occurred: ${err}`});

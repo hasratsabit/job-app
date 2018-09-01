@@ -17,7 +17,7 @@
     </mat-form-field>
     
     <div class="elem-box__buttons">
-      <button class="elem-box__button" mat-raised-button>Cancel</button>
+      <button (click)="onCancel($event)" class="elem-box__button" mat-raised-button>Cancel</button>
       <button [disabled]="!addJobForm.valid" type="submit" class="elem-box__button" mat-raised-button color="primary">Add Job</button>
     </div>
 </form>   
